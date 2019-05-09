@@ -1,0 +1,13 @@
+*.o
+*.elf
+*.map
+*.bin
+*.z64
+
+.*.swp
+
+.vscode/ipch
+toolchain/
+tools/
+bin/
+obj/

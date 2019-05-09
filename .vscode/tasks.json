@@ -1,0 +1,70 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "buildROM",
+            "type": "shell",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "windows": {
+                "command": "cmd",
+                "args":["/c","build"]
+            }
+            
+        },
+        {
+            "label": "deployROM",
+            "type": "shell",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "windows": {
+                "command": "${cwd}/tools/loader64",
+                "args":["${cwd}\\src\\sample.z64"]
+            }
+            
+        },
+        {
+            "label": "startDebugSvc",
+            "type": "shell",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "windows": {
+                "command": "${cwd}/tools/ed64rdb.exe",
+                "args":["COM6","tcp:localhost:3333"] //MAKE SURE THE CORRECT COMPORT IS SPECIFIED
+            }
+            
+        },
+        {
+            "label": "setupDebugger",
+            "dependsOn": [
+                
+                "buildROM",
+                "deployROM"
+                //"startDebugSvc"
+
+            ]
+        },
+        {
+            "label": "terminateDebugger",
+            "type": "shell",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "windows": {
+                "command": "cmd",
+                "args":["/c","taskkill /f /im ed64rdb"]
+            }
+            
+        }
+
+    ]
+}

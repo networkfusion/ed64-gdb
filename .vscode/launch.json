@@ -1,0 +1,47 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(gdb) Launch",
+            "preLaunchTask": "setupDebugger",
+            "type": "cppdbg",
+            "request": "launch",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true,
+
+            "setupCommands": [
+                {"text": "target remote localhost:4444"},
+                {"text": "set $pc=$pc+8"}
+                //{"text": "monitor reset_config none separate"},
+                //{"text": "monitor reset halt"}
+            ],
+
+            //"customLaunchSetupCommands": [
+                //{"text": "monitor reset_config none separate"},
+                //{"text": "set $pc=$pc+8"},
+                //{"text": "monitor reset halt"}
+            //],
+
+            "logging": {
+                // Enable the following to debug GDB
+                "engineLogging": true,
+                "trace": true
+            },
+            "program": "${workspaceFolder}/src/sample.elf",
+            "MIMode": "gdb",
+            "miDebuggerPath": "${workspaceFolder}/toolchain/gcc-toolchain-mips64-win64/bin/mips64-elf-gdb.exe",
+            "launchCompleteCommand": "exec-continue",
+            "debugServerPath": "${workspaceFolder}/tools/ed64rdb.exe",
+            "debugServerArgs": "COM6 tcp:localhost:4444",
+            //"serverStarted": ""//"Info\\ :\\ [\\w\\d\\.]*:\\ hardware",
+            //"filterStderr": true,
+            //"postDebugTask": "terminateDebugger"
+        }
+    ]
+}
